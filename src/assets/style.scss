@@ -1,0 +1,55 @@
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(360deg, #5dc1e6, #97daf3, #bdebfc82);
+  font-size: 10px;
+}
+
+button {
+  padding: 1em;
+  border-radius: 5px;
+  border: none;
+  background: #eeeeee;
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 10px white;
+}
+
+/* based on https://codepen.io/matlaoij/pen/mdpxjp */
+.cloud {
+  --cloud-size: 60px;
+
+  &.small {
+    --cloud-size: 30px;
+  }
+
+  &.large {
+    --cloud-size: 120px;
+  }
+
+  position: absolute;
+
+  height: var(--cloud-size);
+  width: var(--cloud-size);
+  border-radius: 50%;
+  filter: blur(0);
+
+  background: white;
+  opacity: 0.7;
+  z-index: 1;
+
+  margin: 20px;
+
+  box-shadow:
+    #ffffff calc(var(--cloud-size) * 1.05) calc(var(--cloud-size) * -0.25) 0
+      calc(var(--cloud-size) * -0.05),
+    #ffffff calc(var(--cloud-size) * 0.4) calc(var(--cloud-size) * -0.4) 0,
+    #ffffff calc(var(--cloud-size) * 0.5) calc(var(--cloud-size) * 0.15) 0,
+    #ffffff var(--cloud-size) calc(var(--cloud-size) * 0.25) 0 calc(var(--cloud-size) * -0.15),
+    #ffffff calc(var(--cloud-size) * 1.4) calc(var(--cloud-size) * 0.08) 0
+      calc(var(--cloud-size) * -0.08);
+}
