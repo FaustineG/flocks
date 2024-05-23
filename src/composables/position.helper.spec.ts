@@ -35,6 +35,9 @@ describe('position.helper', () => {
 
   describe('averageDirection', () => {
     test('find average direction of group of birds', () => {
+      expect(averageDirection([])).toStrictEqual(0)
+    })
+    test('find average direction of group of birds', () => {
       const birds: Bird[] = [
         { id: '1', direction: 0, position: { x: 0, y: 0 } },
         { id: '2', direction: 90, position: { x: 0, y: 0 } },
