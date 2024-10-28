@@ -1,5 +1,5 @@
 <template>
-  <div class="bird" :style="birdStyle"></div>
+  <div data-testid="bird" class="bird" :style="birdStyle"></div>
 </template>
 
 <script setup lang="ts">

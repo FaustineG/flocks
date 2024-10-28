@@ -3,17 +3,12 @@ import { reactive, ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import { averageDirection, calculateNextPosition, findNearestBirds } from './position.helper'
 
-const DISTANCE_INCREMENT = 10
-const ROTATION_INCREMENT = 90
-const TIME_INCREMENT = 200
-const NB_OF_SIGNIFICANT_NEIGHBORS = 10
-
 type Params = {
-  distance_increment: number
-  rotation_increment: number
-  time_increment: number
-  nb_of_significant_neighbors: number
-  padding: boolean
+  distance_increment?: number
+  rotation_increment?: number
+  time_increment?: number
+  nb_of_significant_neighbors?: number
+  padding?: boolean
 }
 export const useBirds = (height: number, width: number, params?: Params) => {
   const flock = reactive<Flock>({ birds: [] })
@@ -25,8 +20,8 @@ export const useBirds = (height: number, width: number, params?: Params) => {
     rotation_increment,
     time_increment
   } = {
-    distance_increment: 10,
-    rotation_increment: 90,
+    distance_increment: 5,
+    rotation_increment: 180,
     time_increment: 200,
     nb_of_significant_neighbors: 10,
     padding: true,
@@ -51,19 +46,21 @@ export const useBirds = (height: number, width: number, params?: Params) => {
       bird.position.x = x
       bird.position.y = y
       const neighbourDirection = averageDirection(
-        findNearestBirds(bird, flock, NB_OF_SIGNIFICANT_NEIGHBORS)
+        findNearestBirds(bird, flock, nb_of_significant_neighbors)
       )
       const wiggle = 45 - Math.floor(Math.random() * 90)
       bird.direction = neighbourDirection + wiggle
     } else {
-      bird.direction = bird.direction + ROTATION_INCREMENT
+      //TODO change direction
+      console.log('from ' + bird.direction + ' to ' + ((bird.direction + rotation_increment) % 360))
+      bird.direction = (bird.direction + rotation_increment) % 360
     }
   }
 
   const setBirdMovingInterval = (bird: Bird) => {
     const intervalId = setInterval(
-      () => moveBird(bird, DISTANCE_INCREMENT),
-      TIME_INCREMENT - Math.floor((Math.random() * TIME_INCREMENT) / 2)
+      () => moveBird(bird, distance_increment),
+      time_increment - Math.floor((Math.random() * time_increment) / 2)
     )
     intervals.value.push(intervalId)
     return intervalId

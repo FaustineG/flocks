@@ -14,7 +14,7 @@ export function calculateNextPosition(
   return { x, y }
 }
 
-export function findNearestBirds(bird: Bird, flock: Flock, limit = 5): Bird[] {
+export function findNearestBirds(bird: Bird, flock: Flock, limit = 5, maxDistance = 100): Bird[] {
   return flock.birds
     .map((flockBird) => ({
       ...flockBird,
@@ -23,6 +23,7 @@ export function findNearestBirds(bird: Bird, flock: Flock, limit = 5): Bird[] {
           Math.pow(bird.position.y - flockBird.position.y, 2)
       )
     }))
+    .filter((bird) => bird.distanceBetweenBirds < maxDistance)
     .sort((a, b) => (a.distanceBetweenBirds < b.distanceBetweenBirds ? -1 : 1))
     .slice(0, limit)
 }
